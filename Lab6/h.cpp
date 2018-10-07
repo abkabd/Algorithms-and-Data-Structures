@@ -6,36 +6,20 @@ using namespace std;
 struct Heap
 {
 	int sz;
-	int lpos;
 	int val[4*MAXN];
 
 	void init() {
 		sz = 0;
-		lpos = 1;
 		for(int i=0; i<4*MAXN; i++) {
 			val[i] = MN;
 		}
 	}
 
-	void add(int x) {
-		int pos = lpos;
-		int npos = pos/2;
-		sz++;
-		lpos++;
-		val[sz] = x;
-		while(pos > 1 && val[pos] > val[npos]) {
-			swap(val[pos], val[npos]);
-			pos = npos;
-			npos = pos/2;
-		}
-	}
-
-	int siftDown(int i, int x) {
+	int siftDown(int i) {
 		int pos = i;
 		int npos = pos*2;
 
 		if(val[npos] < val[npos+1]) {npos++;}
-		val[pos] -= x;
 
 		while(val[pos] < val[npos]) {
 			swap(val[pos], val[npos]);
@@ -46,13 +30,12 @@ struct Heap
 		return pos;
 	}
 
-	int getMax() {
+	int deleteTop() {
 		int res = val[1];
 		val[1] = val[sz];
 		val[sz] = MN;
 		sz--;
-		cout << siftDown(1, 0) << ' ';//get pos
-	
+		siftDown(1);
 		return res;
 	}
 
@@ -68,20 +51,24 @@ int main()
 {
 	Heap mh;
 	mh.init();
-	int n, m, x;
+
+	int n, x, b[MAXN];
 	cin >> n;
-	m=n-1;
-	while(n--){
-		cin>>x;
-		mh.add(x);
+	for(int i=1; i<=n; i++){
+		cin >> mh.val[i];
+	}
+	mh.sz = n;
+	for(int i=n; i>0; i--) {
+			mh.siftDown(i);
 	}
 
-
-	while(m--){
-		cout << mh.getMax() << '\n';
+	for(int i=n; i>0; i--){
+		mh.print();
+		b[i] = mh.deleteTop();
 	}
 
-
-
+	for(int i=1; i<=n; i++){
+		cout << b[i] << ' ';
+	}
 	return 0;
 }

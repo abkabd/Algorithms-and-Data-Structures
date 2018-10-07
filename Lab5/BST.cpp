@@ -43,6 +43,45 @@ struct BST
 		return root;
 	}
 
+	node * erase(node * root, int x) {
+		if(root == NULL) return root;
+		else if(x < root->key)
+		{
+			root->left = erase(root->left, key);
+		} 
+		else if(x > root->key)
+		{
+			root->right = erase(root->right, key);
+		}
+		else
+		{
+			if(root->left == NULL && root->right == NULL)
+			{
+				delete root;
+				root = NULL;
+				return root;
+			}
+			else if(root->left == NULL)
+			{
+				node * tmp = root;
+				root = root->right;
+				delete tmp;
+			}
+			else if(root->right == NULL)
+			{
+				node * tmp = root;
+				root = root->left;
+				delete tmp;
+			}
+			else
+			{
+				root->key = root->right->key;
+				root = erase(root->right, root->right->key);
+			}
+		}
+		return root;
+	}
+
 	bool find(node * root, int x) {
 		if(root == NULL) return false;
 		else if(root->key == x) return true;

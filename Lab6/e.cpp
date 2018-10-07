@@ -2,26 +2,34 @@
 
 #define MAXN int(1e5+10)
 #define MN  int(-1e9-10)
-
 using namespace std;
 struct Heap
 {
 	int sz;
 	int lpos;
 	int val[4*MAXN];
+	int sift;
 
 	void init() {
 		sz = 0;
 		lpos = 1;
+		sift = 0;
 		for(int i=0; i<4*MAXN; i++) {
-			val[i] = int(-1e9-10);
+			val[i] = MN;
 		}
 	}
-	
+
 	int add(int x) {
 		sz++;
+		int pos = sz;
+		int npos = pos/2;
 		val[sz] = x;
-		return siftUp(sz);
+		while(pos > 1 && val[pos] > val[npos]) {
+			swap(val[pos], val[npos]);
+			pos = npos;
+			npos = pos/2;
+		}
+		return pos;
 	}
 
 	int siftUp(int i) {
@@ -41,7 +49,6 @@ struct Heap
 		int npos = pos*2;
 
 		if(val[npos] < val[npos+1]) {npos++;}
-		
 
 		while(val[pos] < val[npos]) {
 			swap(val[pos], val[npos]);
@@ -52,40 +59,7 @@ struct Heap
 		return pos;
 	}
 
-	int updateElement(int pos, int val) {
-		int newPos = 0;
-		val[pos] += x;
-		if(x <= 0)
-		{
-			newPos = siftDown(pos);
-		}
-		if(x > 0)
-		{
-			newPos = siftUp(pos);
-		}
-
-		return newPos;
-	}
-
-	int getTop() {
-		return val[1];
-	}
-
-	int deleteTop() {
-		int res = val[1];
-		val[1] = val[sz];
-		val[sz] = MN;
-		sz--;
-		siftDown(1);
-		return res;
-	}
-
 	int deleteElement(int pos) {
-		if(x > sz || x <= 0)
-		{
-			return -1;
-		}
-
 		int res = val[pos];
 		val[pos] = val[sz];
 		val[sz] = MN;
@@ -105,6 +79,21 @@ struct Heap
 		return res;
 	}
 
+	int getMax() {
+		
+		int res = val[1];
+		sift = 0;
+		val[1] = val[sz];
+		val[sz] = MN;
+		sz--;
+		if(sz != 0) 
+		{
+			sift =  siftDown(1);
+		}
+		cout << sift << ' ';
+		return res;
+	}
+
 	void print() {
 		for(int i=1; i<=sz; i++) {
 			cout << val[i] << ' ';
@@ -115,15 +104,49 @@ struct Heap
 
 int main()
 {
-	/*
 	Heap mh;
 	mh.init();
-	mh.add(x);
-	mh.siftUp(i);
-	mh.siftDown(i);
-	mh.updateElement(pos, x);
-	mh.getMax();
+
+	int n, m, x, t;
+	cin >> n >> m;
+	while(m--){
+		cin>>t;
+		if(t == 1) {
+			if(mh.sz == 0)
+			{
+				cout << -1;
+			}
+			else 
+			{
+				cout << mh.getMax();
+			}
+		}
+		if(t == 2) {
+			cin >> x;
+			if(mh.sz == n)
+			{
+				cout << -1;
+			}
+			else 
+			{
+				cout << mh.add(x);
+			}
+		}
+
+		if(t == 3) {
+			cin >> x;
+			if(x > mh.sz || x <= 0)
+			{
+				cout << -1;
+			}
+			else 
+			{
+				cout << mh.deleteElement(x);
+			}
+		}
+		cout << '\n';
+	}
+
 	mh.print();
 	return 0;
-	*/
 }

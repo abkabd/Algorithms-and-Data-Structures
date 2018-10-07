@@ -17,7 +17,7 @@ struct Heap
 		}
 	}
 
-	void add(int x) {
+	int add(int x) {
 		int pos = lpos;
 		int npos = pos/2;
 		sz++;
@@ -28,6 +28,7 @@ struct Heap
 			pos = npos;
 			npos = pos/2;
 		}
+		return pos;
 	}
 
 	int siftDown(int i, int x) {
@@ -47,12 +48,17 @@ struct Heap
 	}
 
 	int getMax() {
-		int res = val[1];
+		
+		int res = val[1], sift = 0;
 		val[1] = val[sz];
 		val[sz] = MN;
 		sz--;
-		cout << siftDown(1, 0) << ' ';//get pos
-	
+		lpos--;
+		if(sz != 0) 
+		{
+			sift =  siftDown(1, 0);
+		}
+		cout << sift << ' ';
 		return res;
 	}
 
@@ -68,20 +74,36 @@ int main()
 {
 	Heap mh;
 	mh.init();
-	int n, m, x;
-	cin >> n;
-	m=n-1;
-	while(n--){
-		cin>>x;
-		mh.add(x);
-	}
 
-
+	int n, m, x, t;
+	cin >> n >> m;
 	while(m--){
-		cout << mh.getMax() << '\n';
+		cin>>t;
+		if(t == 1) {
+			if(mh.sz == 0)
+			{
+				cout << -1;
+			}
+			else 
+			{
+				cout << mh.getMax();
+			}
+		}
+		if(t == 2) {
+			cin >> x;
+			if(mh.sz == n)
+			{
+				cout << -1;
+			}
+			else 
+			{
+				cout << mh.add(x);
+			}
+		}
+
+		cout << '\n';
 	}
 
-
-
+	mh.print();
 	return 0;
 }
