@@ -1,0 +1,9 @@
+8
+insertFirst 10
+insertLast 20
+insertFirst 10
+cnt 10
+getNth 0
+getNth 1
+getNth 2
+insertLast 30

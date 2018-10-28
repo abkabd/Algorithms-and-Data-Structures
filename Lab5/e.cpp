@@ -56,6 +56,7 @@ struct BST
 			}
 			inorder(x->right);
 		}
+		return;
 	}
 };
 int main() {

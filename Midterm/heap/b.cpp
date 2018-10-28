@@ -51,57 +51,13 @@ struct Heap
 		}
 		return pos;
 	}
-
-	int updateElement(int pos, int val) {
-		int newPos = 0;
-		val[pos] += x;
-		if(x <= 0)
-		{
-			newPos = siftDown(pos);
-		}
-		if(x > 0)
-		{
-			newPos = siftUp(pos);
-		}
-
-		return newPos;
-	}
-
-	int getTop() {
-		return val[1];
-	}
-
+	
 	int deleteTop() {
 		int res = val[1];
 		val[1] = val[sz];
 		val[sz] = MN;
 		sz--;
 		siftDown(1);
-		return res;
-	}
-
-	int deleteElement(int pos) {
-		if(x > sz || x <= 0)
-		{
-			return -1;
-		}
-
-		int res = val[pos];
-		val[pos] = val[sz];
-		val[sz] = MN;
-		sz--;
-		if(sz == 0)
-		{
-			sift = 0;
-		}
-		else if(val[pos] < max(val[pos*2], val[pos*2+1]))
-		{
-			sift = siftDown(pos);
-		}
-		else if(val[pos] != val[pos/2])
-		{
-			sift = siftUp(pos);
-		}
 		return res;
 	}
 
@@ -115,15 +71,20 @@ struct Heap
 
 int main()
 {
-	/*
 	Heap mh;
 	mh.init();
-	mh.add(x);
-	mh.siftUp(i);
-	mh.siftDown(i);
-	mh.updateElement(pos, x);
-	mh.getMax();
-	mh.print();
+	int k, q, x;
+	cin>>k;
+	while(k--)
+	{
+		cin>>q;
+		if(!q) {
+			cin>>x;
+			mh.add(x);
+		}
+		else {
+			cout << mh.deleteTop() << '\n';
+		}
+	}
 	return 0;
-	*/
 }
