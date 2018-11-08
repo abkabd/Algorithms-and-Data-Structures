@@ -1,0 +1,14 @@
+3
+aba
+bab
+aba
+ababababac
+6
+beta
+alpha
+haha
+delta
+dede
+tata
+dedeltalphahahahototatalpha
+0
