@@ -59,9 +59,7 @@ void solve() {
 
 	for(int i=0; i<ans[mx].size(); i++)
 	{
-		cout << ans[mx][i];
-		if(i != ans[mx].size() - 1)
-			cout << endl;
+		cout << ans[mx][i] << endl;
 	}
 	v.clear();
 	ans.clear();
@@ -71,24 +69,19 @@ void solve() {
 int main() {
 	init();
 	int n = 1;
-	bool ok = false;
 	while(true)
 	{
 		cin>>n;
+		getline(cin, t);
 		if(n == 0)break;
 
-		if(ok && n != 1){
-			cout << endl;
-		}
-
 		for(int i=0; i<n; i++) {
-			cin>>t;
+			getline(cin, t);
 			v.push_back(t);
 		}
-		cin>>s;
+		getline(cin, s);
 		sz = s.size();
 		solve();
-		ok = true;
 	}
 	
 }

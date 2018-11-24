@@ -2,10 +2,7 @@
 
 using namespace std;
 
-
-
 map<int, vector<string> > ans;
-map<string, bool> was;
 vector<string> v;
 
 string s;
@@ -15,12 +12,6 @@ void solve() {
 
 	for(int x=0; x<v.size(); x++)
 	{
-		if(was[v[x]])
-		{
-			continue;
-		}
-
-		was[v[x]] = true;
 		int cnt=0, sz = v[x].size();
 		string t = (v[x] + '#' + s);
 		vector<int> p(t.size());
@@ -47,9 +38,7 @@ void solve() {
 
 	for(int i=0; i<ans[mx].size(); i++)
 	{
-		cout << ans[mx][i];
-		if(i != ans[mx].size() - 1)
-			cout << endl;
+		cout << ans[mx][i] << endl;
 	}
 
 	v.clear();
@@ -60,22 +49,19 @@ void solve() {
 int main() {
 	int n;
 	string t;
-	bool ok = false;
+	
 	while(true)
 	{
 		cin>>n;
+		getline(cin, t);
 		if(n == 0)break;
 
-		if(ok && n != 1){
-			cout << endl;
-		}
 		for(int i=0; i<n; i++) {
-			cin>>t;
+			getline(cin, t);
 			v.push_back(t);
 		}
-		cin>>s;
+		getline(cin, s);
 		solve();
-		ok = true;
 	}
 	
 }

@@ -18,6 +18,7 @@ long long getHash(int l, int r) {
 	if(l > 0) tmp -= h[l-1];
 	return tmp * p[n-r-1];
 }
+
 void solve() {
 	set<long long> ans;
 	string s, t;
